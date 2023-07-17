@@ -95,6 +95,36 @@ mongo = MongoClient(app.config["MONGO_URI"])
 db = mongo["docsgpt"]
 vectors_collection = db["vectors"]
 
+db_vectors = {}
+for index in vectors_collection.find({"user": "local"}):
+    db_vectors[index['name']] = index
+# print('db_vectors',db_vectors)
+
+folders = os.listdir(os.path.join(app.config["UPLOAD_FOLDER"],"local"))
+for folder in folders:
+    if folder not in db_vectors:
+        if os.path.isfile(folder):
+            print("folder is a file", folder)
+
+        save_dir = os.path.join("indexes", "local", folder)
+
+        vectors_collection.insert_one(
+        {
+            "user": "local",
+            "name": folder,
+            "language": folder,
+            "location": save_dir,
+            "date": datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+            "model": settings.EMBEDDINGS_NAME,
+            "type": "local",
+        }
+        )
+        print(f"{folder} inserted in db")
+        
+print("folders",folders)
+
+# save_dir = os.path.join(app.config["UPLOAD_FOLDER"], user, job_name)
+
 
 async def async_generate(chain, question, chat_history):
     result = await chain.arun({"question": question, "chat_history": chat_history})

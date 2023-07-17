@@ -5,7 +5,6 @@ import Arrow2 from './assets/dropdown-arrow.svg';
 import Exit from './assets/exit.svg';
 import Message from './assets/message.svg';
 import Hamburger from './assets/hamburger.svg';
-import Key from './assets/key.svg';
 import Info from './assets/info.svg';
 import Link from './assets/link.svg';
 import UploadIcon from './assets/upload.svg';
@@ -199,7 +198,7 @@ export default function Navigation({
           </div>
           <p className="ml-6 mt-3 font-bold text-jet">Source Docs</p>
         </div>
-        <div className="flex flex-col gap-2 border-b-2 py-2">
+        {/* <div className="flex flex-col gap-2 border-b-2 py-2">
           <div
             className="my-auto mx-4 flex h-12 cursor-pointer gap-4 rounded-md hover:bg-gray-100"
             onClick={() => {
@@ -209,7 +208,7 @@ export default function Navigation({
             <img src={Key} alt="key" className="ml-2 w-6" />
             <p className="my-auto text-eerie-black">Reset Key</p>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col gap-2 border-b-2 py-2">
           <NavLink
